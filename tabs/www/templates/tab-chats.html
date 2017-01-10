@@ -4,13 +4,20 @@
     <ion-list>
 
       <button ng-click='call()' type="button" name="button">call</button>
+      <button ng-click='refresh()' type="button" name="button">refresh</button>
+
+      <ion-refresher
+        pulling-text="Pull to refresh..."
+        on-refresh="doRefresh()">
+      </ion-refresher>
 
       <ion-item
         class="item-remove-animate item-avatar item-icon-right"
         ng-repeat="chat in chats"
         type="item-text-wrap"
       >
-        <img ng-src="{{chat.face}}">
+        <img ng-src="{{chat.picture}}">
+        <img ng-show="{{chat.picture}}">
         <h2>{{chat.name}}</h2>
         <p>{{chat.body}}</p>
 

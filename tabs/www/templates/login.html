@@ -1,7 +1,10 @@
 <ion-view view-title="Login">
   <ion-content class="padding">
 
-    <img src="{{sizeHold()}}">
+    <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}" alt="">
+    <img ng-show="imgURI === undefined" ng-src="{{sizeHold()}}" alt="">
+
+    <button class="button" ng-click="takePicture()">사진찍기</button>
 
     <button class="button button-full button-positive">
       사진선택
