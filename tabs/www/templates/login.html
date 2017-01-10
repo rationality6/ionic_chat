@@ -1,0 +1,19 @@
+<ion-view view-title="Login">
+  <ion-content class="padding">
+
+    <img src="{{sizeHold()}}">
+
+    <button class="button button-full button-positive">
+      사진선택
+    </button>
+
+    <label class="item item-input">
+      <span class="input-label">닉네임</span>
+      <input type="text" ng-model="nickName">
+    </label>
+
+    <a class="button button-full button-positive" ng-click="login()" href="#/tab/chats" nav-direction="forward" >
+      로그인
+    </a>
+  </ion-content>
+</ion-view>

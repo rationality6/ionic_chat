@@ -1,0 +1,27 @@
+<ion-view view-title="Chats">
+  <ion-content>
+
+    <ion-list>
+
+      <button ng-click='call()' type="button" name="button">call</button>
+
+      <ion-item
+        class="item-remove-animate item-avatar item-icon-right"
+        ng-repeat="chat in chats"
+        type="item-text-wrap"
+      >
+        <img ng-src="{{chat.face}}">
+        <h2>{{chat.name}}</h2>
+        <p>{{chat.body}}</p>
+
+      </ion-item>
+
+    </ion-list>
+
+  </ion-content>
+
+  <ion-footer-bar class="bar">
+    <input type="text" placeholder="문자열을 입력하세요." ng-model="chatText">
+  </ion-footer-bar>
+
+</ion-view>
