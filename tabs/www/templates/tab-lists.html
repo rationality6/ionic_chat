@@ -1,0 +1,15 @@
+<ion-view view-title="Lists">
+  <ion-content>
+    <p>{{person}}</p>
+    <p>{{people}}</p>
+    <hr/>
+    <div ng-repeat="person in people" class="">
+      <div class="">{{person.name}}</div>
+      <div class="">{{person.email}}</div>
+      <div class="">{{person.phone}}</div>
+      <div class="">{{person.geo}}</div>
+      <div class="">{{person.company}}</div>
+      <br>
+    </div>
+  </ion-content>
+</ion-view>

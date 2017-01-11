@@ -1,5 +1,5 @@
 angular
-  .module('starter', ['ionic', 'starter.controllers', 'starter.services', 'ngCordova'])
+  .module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'starter.services', 'lists_controller', 'photos_controller'])
   .run(function($ionicPlatform) {
     $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -24,19 +24,16 @@ angular
   //Router
   .config(function($stateProvider, $urlRouterProvider) {
     $stateProvider
-
       .state('login', {
         url: '/login',
         templateUrl: 'templates/login.html',
         controller: 'Login'
       })
-
       .state('tab', {
         url: '/tab',
         abstract: true,
         templateUrl: 'templates/tabs.html'
       })
-
       .state('tab.chats', {
         url: '/chats',
         views: {
@@ -46,17 +43,23 @@ angular
           }
         }
       })
-
-      .state('tab.account', {
-        url: '/account',
+      .state('tab.photos', {
+        url: '/photos',
         views: {
-          'tab-account': {
-            templateUrl: 'templates/tab-account.html',
-            controller: 'AccountCtrl'
+          'tab-photos': {
+            templateUrl: 'templates/tab-photos.html',
+            controller: 'PhotosCtrl'
+          }
+        }
+      })
+      .state('tab.lists', {
+        url: '/lists',
+        views: {
+          'tab-lists': {
+            templateUrl: 'templates/tab-lists.html',
+            controller: 'ListsCtrl'
           }
         }
       });
-
     $urlRouterProvider.otherwise('/login');
-
   });

@@ -2,8 +2,8 @@ var name = ""
 var picture = ""
 
 angular
-  .module('starter.controllers', [])
-  .controller('Login', function($scope, $window, $http, $cordovaCamera, Foobar) {
+  .module('starter.controllers', ['ngResource'])
+  .controller('Login', function($scope, $window, $http, $cordovaCamera, $resource) {
     $scope.takePicture = function() {
 
       var options = {
@@ -40,64 +40,94 @@ angular
 
   })
 
-  .controller('ChatsCtrl', function($scope, $http) {
+  .controller('ChatsCtrl', function($scope, $http, Chats, $resource) {
 
-    var callSample = function() {
-      $http({
-        method: 'GET',
-        url: 'http://localhost:3000/api/call'
-      }).then(function successCallback(response) {
-        console.log(response.data);
-      }, function errorCallback(response) {
-        console.log(response);
-      });
+    var callSample0 = function() {
+      $http
+        .get('http://localhost:3000/api/call')
+        .success(function(res) {
+          console.log('callSample0 works');
+          console.log(res);
+        })
     }
 
-    var pushApi = function(nickName, chatText) {
-      $http({
-        method: 'POST',
-        url: 'http://192.168.0.10:3000/api/chats',
-        data: {
-          "name": nickName,
-          "body": chatText,
-          "picture": picture
-        }
-      }).then(function successCallback(response) {
-        console.log('pushApi works');
-        pullApi()
-      }, function errorCallback(response) {
-        console.log(response);
-      });
-    }
-
-    var pullApi = function() {
-      $http({
-        method: 'GET',
-        url: 'http://192.168.0.10:3000/api/chats'
-      }).then(function successCallback(response) {
-        console.log(response.data);
-        $scope.chats = response.data
-        $scope.$broadcast('scroll.refreshComplete');
-      }, function errorCallback(response) {
-        console.log(response);
-      });
-    }
-
-    // 리소스를 사용해서 3줄로 줄이기
+    var ChatResource = $resource('http://localhost:3000/api/chats');
 
     $scope.call = function() {
-      pushApi(name, this.chatText)
+      ChatResource.save({name : name, body : this.chatText}, function(){
+        $scope.refresh();
+      });
     }
 
     $scope.refresh = function() {
-      pullApi()
+      $scope.chats = ChatResource.query();
     }
 
     $scope.doRefresh = function() {
-      pullApi()
+      $scope.chats = ChatResource.query();
+      $scope.$broadcast('scroll.refreshComplete');
     }
 
-    Foobar.call()
+
+    //
+    // callSample0()
+    //
+    // var callSample = function() {
+    //   $http({
+    //     method: 'GET',
+    //     url: 'http://localhost:3000/api/call'
+    //   }).then(function successCallback(response) {
+    //     console.log(response.data);
+    //   }, function errorCallback(response) {
+    //     console.log(response);
+    //   });
+    // }
+    //
+    // callSample()
+    //
+    // var pushApi = function(nickName, chatText) {
+    //   $http({
+    //     method: 'POST',
+    //     url: 'http://192.168.0.10:3000/api/chats',
+    //     data: {
+    //       "name": nickName,
+    //       "body": chatText,
+    //       "picture": picture
+    //     }
+    //   }).then(function successCallback(response) {
+    //     console.log('pushApi works');
+    //     pullApi()
+    //   }, function errorCallback(response) {
+    //     console.log(response);
+    //   });
+    // }
+    //
+    // var pullApi = function() {
+    //   $http({
+    //     method: 'GET',
+    //     url: 'http://192.168.0.10:3000/api/chats'
+    //   }).then(function successCallback(response) {
+    //     console.log(response.data);
+    //     $scope.chats = response.data
+    //     $scope.$broadcast('scroll.refreshComplete');
+    //   }, function errorCallback(response) {
+    //     console.log(response);
+    //   });
+    // }
+
+    // 리소스를 사용해서 3줄로 줄이기
+
+    // $scope.call = function() {
+    //   pushApi(name, this.chatText)
+    // }
+    //
+    // $scope.refresh = function() {
+    //   pullApi()
+    // }
+    //
+    // $scope.doRefresh = function() {
+    //   pullApi()
+    // }
 
     // $scope.chats = Chats.all();
 

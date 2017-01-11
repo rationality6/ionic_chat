@@ -4,10 +4,8 @@
     <img ng-show="imgURI !== undefined" ng-src="{{imgURI}}" alt="">
     <img ng-show="imgURI === undefined" ng-src="{{sizeHold()}}" alt="">
 
-    <button class="button" ng-click="takePicture()">사진찍기</button>
-
-    <button class="button button-full button-positive">
-      사진선택
+    <button ng-click="takePicture()" class="button button-full button-positive">
+      사진찍기
     </button>
 
     <label class="item item-input">
